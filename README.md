@@ -1,6 +1,6 @@
 # LAB-ORM-1
 
-## Using what you learned , Create a q new project BlogWebsite:
+## Using what you learned , Create a  new project `BlogWebsite`:
 - Users can view the blog posts in the home page.
 - Users can Add a new blog post. 
 
