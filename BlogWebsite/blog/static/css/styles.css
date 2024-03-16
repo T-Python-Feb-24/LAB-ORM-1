@@ -1,0 +1,103 @@
+/* static/css/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.post {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    transition: transform 0.3s; /* Add transition for smooth animation */
+}
+
+.post:hover {
+    transform: scale(1.05); /* Enlarge the post when hovering */
+}
+
+.post h2 {
+    margin-bottom: 10px;
+}
+
+.post p {
+    color: #666;
+}
+
+.add-post-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.add-post-link:hover {
+    background-color: #0056b3;
+}
+header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between; /* Align items to the ends */
+    align-items: center;
+}
+
+/* Footer styles */
+footer {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 10px 20px;
+    text-align: center;
+    position: fixed; /* Fix the footer position */
+    bottom: 0;
+    width: 100%;
+}
+
+/* Style for the "Add Post" link */
+.add-post-link {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.add-post-link:hover {
+    background-color: #0056b3;
+}
+.submit-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Style for the back button */
+.back-button {
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.back-button:hover {
+    background-color: #999;
+}
