@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Add New Post {% endblock %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col-6">
+        <h1>Add New Post</h1>
+        
+        <form action="{% url 'main:add_post_page' %}" method="post" class="d-flex flex-column mb-3">
+            {% csrf_token %}
+            <label><h5>Title:</h5> </label>
+            <input type="text" name="title" id="title" required><br>
+            
+            <label><h5>Content:</h5> </label>
+            <textarea name="content" id="content" required></textarea><br>
+            {{ form.as_p }}
+            <p style="color: rgb(104, 104, 104);">Date Format: mm/dd/yyyy</p>
+            <button type="submit" class="btn w-100" data-bs-theme="dark">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
