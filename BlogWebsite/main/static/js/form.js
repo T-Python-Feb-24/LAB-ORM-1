@@ -7,3 +7,7 @@
         text.style.display = "none";
       }
     }
+
+    function mydate(){
+      var date = new Date.now
+    }

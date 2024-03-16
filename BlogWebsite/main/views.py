@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.http import HttpRequest, HttpResponse
 from .models import Post
+from datetime import date
 
 # Create your views here.
 
@@ -14,6 +15,8 @@ def post_view(request: HttpRequest):
 
 
 def add_post_view(request: HttpRequest):
+    today = date.today().strftime("%d/%m/%Y")
+
     if request.method == "POST":
         if "is_published" in request.POST:
             new_post = Post(
@@ -26,4 +29,5 @@ def add_post_view(request: HttpRequest):
                 title=request.POST["title"], content=request.POST["content"])
             new_post.save()
             return redirect("main:post_view")
-    return render(request, "main/add_post.html")
+    context = {"today": today}
+    return render(request, "main/add_post.html", context)
