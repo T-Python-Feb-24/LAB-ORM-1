@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+
+{% block title %} Add new Post {% endblock %}
+
+
+{% block content %}
+    <div class="container mt-5 pt-5">
+        <div class="row">
+            <div class="col-6">
+                <h1>Add post</h1>
+                
+                <form action="{% url 'blog:add_post_page' %}" method="POST" class="d-flex flex-column gap-2">
+                  
+                {% csrf_token %}
+                <input type="text" name="title" placeholder="title" class="form-control"/>
+        
+                <textarea name="content" placeholder="content" class="form-control"></textarea>
+                
+                <input type="datetime-local" name="published_at" value="datetime-local" class="form-control"/>
+                
+                <input type="hidden" name="is_published" value="0"  />
+                <input type="checkbox" name="is_published" value="1" id="is_published"  />
+                <span><label for="is_published"  > is_published ?</label></span>
+           
+                <input type="submit" value="Add Post"  class="btn btn-primary"/>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
