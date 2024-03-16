@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}BlogWebsite{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>BlogWebsite</h1>
+        <a href="#" class="js-colorlib-nav-toggle colorlib-nav-toggle active"><i></i></a>
+       
+        <aside id="colorlib-aside" role="complementary" class="js-fullheight">
+            <nav id="colorlib-main-menu" role="navigation">
+            <ul>
+            <li class="colorlib-active"><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'add_post' %}">Add Pos</a></li>
+            
+            </ul>
+            </nav>
+            </aside>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 BlogWebsite. All rights reserved.</p>
+    </footer>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header a.colorlib-nav-toggle {
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+header a.colorlib-nav-toggle.active i {
+    transform: rotate(90deg);
+}
+
+aside#colorlib-aside {
+    background-color: #f4f4f4;
+}
+
+aside#colorlib-aside nav#colorlib-main-menu ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+aside#colorlib-aside nav#colorlib-main-menu ul li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+aside#colorlib-aside nav#colorlib-main-menu ul li.colorlib-active {
+    background-color: #ddd;
+}
+
+aside#colorlib-aside nav#colorlib-main-menu ul li a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #333;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 200px;
+}
+
+@media screen and (max-width: 768px) {
+    aside#colorlib-aside nav#colorlib-main-menu,
+    aside#colorlib-aside nav#colorlib-main-menu ul li {
+        padding: 5px;
+    }
+}
+#row_style {
+    display: flex;
+    margin-top: 50px;
+    
+    border-radius: 20px;
+    justify-content: center;
+    border: 0px solid #000000;
+    background-color: rgba(237, 237, 242, 0.684);
+    color: rgb(0, 0, 0);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#submit {
+    display: block;
+    margin: auto;
+    background-color: blueviolet;
+    padding: 10px 10px;
+    align-items: center;
+}
+</style>
+</body>
+</html>
