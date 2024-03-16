@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Post
 from django.http import HttpRequest, HttpResponse
-from django.utils import timezone  # Import timezone module
-from .forms import PostForm  # Make sure to import PostForm
+from django.utils import timezone  
+from .forms import PostForm  
 
 def home(request):
     posts = Post.objects.filter(is_published=True).order_by('-published_at')
