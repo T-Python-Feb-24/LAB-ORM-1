@@ -1,0 +1,15 @@
+/* *{
+
+} */
+.font-f{
+    font-family: "Teko", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900px;
+    font-style: normal;
+    align-items: center;
+    
+}
+.POST{
+    border: 2px solid rgb(15, 109, 210);
+    margin: 20px 10px;
+}
