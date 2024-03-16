@@ -1,0 +1,53 @@
+{% extends 'main/base.html' %} 
+{% load static %}
+{% block form_js %}
+<script src="{% static "js/form.js" %}"></script>
+{% endblock form_js %}
+{% block title %} add post {% endblock %}
+{% block content %}
+<div class="form-container">
+  <form action="{% url "main:add_post_view" %}" method="POST">
+    {% csrf_token %}
+    <!-- Title input -->
+    <div data-mdb-input-init class="form-outline mb-4">
+      <label class="form-label" for="title">Title:</label>
+      <input type="text" id="title" name="title" class="form-control" />
+    </div>
+
+    <!-- Message input -->
+    <div data-mdb-input-init class="form-outline mb-4">
+      <label class="form-label" for="content">Content:</label>
+      <textarea class="form-control" name="content" id="content" rows="4"></textarea>
+    </div>
+
+    <!-- Checkbox -->
+    <div class="form-check d-flex justify-content-center mb-4">
+      <input
+        class="form-check-input me-2"
+        type="checkbox"
+        value="True"
+        id="is_published"
+        name="is_published"
+        onclick="myFunction()"
+      />
+      <label class="form-check-label" for="is_published">
+        Is it published?
+      </label>
+    </div>
+    <div class="form-outline mb-4 div_published_at">
+      <label class="form-label" for="published_at">Published at :</label>
+
+      <input type="date" name="published_at" id="published_at" lang="en-us" />
+    </div>
+    <!-- Submit button -->
+    <button
+      id="submit_post"
+      data-mdb-ripple-init
+      type="submit"
+      class="btn btn-primary"
+    >
+      Post
+    </button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %} {% block title %} blog {% endblock %}
+{% block content %}
+
+   <div class="table">
+        <div class="d-flex m-lg-3 justify-content-between align-items-center ">
+            <h1>posts</h1>
+            <a class="btn btn-primary" href="{% url 'main:add_post_view' %}">Add post</a>
+        </div>
+
+        <div class="col m-lg-3">
+            {% for post in posts %}
+                <div class="d-flex flex-column  p-3 mt-3 post">
+                    <h2>Title: {{ post.title }}</h2>
+                    <p> <span>Content:</span>  {{ post.content }}</p>
+                    {% if post.is_published %}
+                      <p><span>Pablished at :</span> {{post.published_at|date:"d/m/Y" }}</p>
+                    {% endif %}
+                </div> 
+            {% endfor %}
+
+        </div>
+    </div>
+
+{% endblock %}
