@@ -1,0 +1,15 @@
+{% extends "main/base.html" %}
+{% block title %} Add new post {% endblock %}
+
+{% block content %}
+
+    <form action="{% url "main:home_page" %}" method="POST" class="d-flex flex-column gap-2">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="title" class="form-control"/>
+        <textarea name="content" placeholder="content" class="form-control"></textarea>
+        <label for="publishdate">Publish date</label>
+        <input type="datetime-local" id="publishdate" name="publishdate">
+        <input type="submit" value="submit" class="btn btn-dark">
+    </form>
+    
+{% endblock  %}

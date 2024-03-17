@@ -10,3 +10,4 @@
 - content : text field
 - is_published : boolean field
 - published_at : datetime field
+
