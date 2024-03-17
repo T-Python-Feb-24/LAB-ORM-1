@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Add New Post {% endblock %}
+
+{% block content %}
+<div class="row">
+    <h1>Add new post</h1>
+    <div class="col">
+
+        <form action="{% url 'main:add_post' %}" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+            {% csrf_token %}
+
+            <input name="title" type="text" placeholder="Title" class="form-control" required minlength="5" />
+            <textarea name="content" class="form-control" required ></textarea>
+
+            <div class="form-check form-switch">
+                <input name="is_published" value="True" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">is publihed</label>
+            </div>
+
+            <!-- <div class="d-flex flex-row gap-2">
+                <h5>Choose Category:</h5>
+                <input list="browsers" name="browser" id="browser" class="form-control" style="width: 200px;">
+                <datalist id="browsers">
+                    <option value="General">
+                    <option value="Science">
+                    <option value="Culture">
+                    <option value="Food">
+                    <option value="Tech">
+                    <option value="Fashion">
+                </datalist>
+            </div> -->
+
+            <h5>Choose Image:</h5>
+            <input name="image"  type="file"  accept="image/*" class="form-control" required/>
+
+            <input type="submit" class="btn" value="Add Post" style="color:aliceblue; background: linear-gradient(#e66464b2, #e5b791);"/>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

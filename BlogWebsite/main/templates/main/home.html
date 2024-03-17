@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Blog Website {% endblock %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Notes</h1>
+            <a class="btn" href="{% url 'main:add_post' %}" style="color: aliceblue; background: linear-gradient(#e66465, #e5b791);">Add Post</a>
+        </div>
+
+
+        <div class="row mt-4">
+            
+            {% for post in posts %}
+            <div class="col-4">
+                <div class="d-flex flex-column gap-1 border border-1 shadow p-3 rounded-4 h-100">
+                    <img src="{{ post.image.url }}"  class="w-100 rounded-4"/>
+                    <h2><a href="{% url 'main:post_detail' post.id  %}" class="text-decoration-none">{{post.title}}</a></h2>
+                    <h6>{{ post.published_at }}</h6>
+                    <small>Category: {{post.category}}</small><br/>
+
+                </div>
+            </div>
+            {% endfor %}
+        
+        </div>
+        
+    </div>
+</div>
+{% endblock %}
