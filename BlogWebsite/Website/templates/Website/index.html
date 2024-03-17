@@ -1,0 +1,29 @@
+{% extends 'Website/base.html' %}
+
+{% block title %}  {% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Post</h1>
+            <a class="btn btn-primary" href="{% url 'Website:add_post' %}">Add Post</a>
+        </div>
+
+        <div class="col">
+            {% for  BlogWebsite in  blog %}
+                <div class="d-flex flex-column border border-1 p-3 mt-3 rounded-2">
+                    <h2> {{  BlogWebsite.title }}</h2>
+                    <p> {{  BlogWebsite.content }}</p>
+                    <p> {{  BlogWebsite.is_published}}</p>
+                    <p> {{  BlogWebsite.published_at }}</p>
+                    
+                </div> 
+            {% endfor %}
+  
+
+        </div>
+    </div>
+
+{% endblock %}
