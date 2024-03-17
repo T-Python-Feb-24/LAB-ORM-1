@@ -12,7 +12,10 @@
                 <a href="{% url "main:post_detail_view" post.id%}"><div class="post post-index">
                     <img src="{{ post.poster.url }}" alt="" srcset="">
                     <h3>{{ post.title }}</h3>
+                    <div class="d-flex flex-column">
                     <h6>{{post.published_at}}</h6>
+                    <h6>{{post.category}}</h6>
+                    </div>
                     <p>{{ post.content }}</p>
                     {% if post.is_published %} 
                     <p style="color:green;"> it published </p>

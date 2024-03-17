@@ -15,18 +15,17 @@ def post_view(request: HttpRequest):
 
 
 def add_post_view(request: HttpRequest):
-    try:
-        if request.method == "POST":
-            new_post = Post(
-                title=request.POST.get("title"),
-                content=request.POST.get("content"),
-                is_published=request.POST.get("is_published", False),
-                poster=request.FILES.get("poster"))
-            new_post.save()
-            return redirect("main:post_view")
 
-    except Exception as e:
-        print(e)
+    if request.method == "POST":
+        new_post = Post(
+            title=request.POST.get("title"),
+            category=request.POST.get("category"),
+            content=request.POST.get("content"),
+            is_published=request.POST.get("is_published", False),
+            poster=request.FILES.get("poster"))
+        new_post.save()
+        return redirect("main:post_view")
+
     return render(request, "main/add_post.html")
 
 
@@ -43,16 +42,17 @@ def post_detail_view(request: HttpRequest, post_id):
 
 
 def update_post_view(request: HttpRequest, post_id):
-
     post = Post.objects.get(pk=post_id)
-
     if request.method == "POST":
         try:
-            post.title = request.POST["title"]
-            post.content = request.POST["content"]
+            post.title = request.POST.get("title")
+            post.content = request.POST.get("content")
+            post.category = request.POST.get("category")
             post.is_published = request.POST.get("is_published", False)
+            if request.FILES.get("poster") != None:
+                post.poster = request.FILES.get("poster")
             post.save()
-            return redirect("main:post_detail_view", post_id=post.id)
+            return redirect("main:post_detail_view", post_id)
         except Exception as e:
             print(e)
 
