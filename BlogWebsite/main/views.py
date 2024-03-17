@@ -69,3 +69,7 @@ def delete_post(request:HttpRequest, post_id):
         print(e)
     
     return redirect("main:home")
+
+
+def view_404(request, exception):
+    return render(request, '404.html')
