@@ -12,10 +12,12 @@
         </div>
 
         <div class="col">
+            <h1> posts : </h1>
             {% for post in posts %}
                 <div class="d-flex flex-column border border-1 p-3 mt-3 rounded-2">
                     <h2> {{ post.title }}</h2>
                     <p> {{ post.content }}</p>
+                    <h6>{{post.published_at}}</h6>
                 </div> 
             {% endfor %}
 
