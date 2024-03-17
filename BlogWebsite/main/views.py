@@ -7,27 +7,64 @@ from datetime import date
 
 
 def post_view(request: HttpRequest):
-    post = Post.objects.all()
+    posts = Post.objects.all()
     context = {
-        "posts": post
+        "posts": posts
     }
     return render(request, "main/index.html", context)
 
 
 def add_post_view(request: HttpRequest):
-    today = date.today().strftime("%d/%m/%Y")
-
-    if request.method == "POST":
-        if "is_published" in request.POST:
+    try:
+        if request.method == "POST":
             new_post = Post(
-                title=request.POST["title"], content=request.POST["content"],
-                is_published=request.POST["is_published"],
-                published_at=request.POST["published_at"])
-            new_post.save()
-        else:
-            new_post = Post(
-                title=request.POST["title"], content=request.POST["content"])
+                title=request.POST.get("title"),
+                content=request.POST.get("content"),
+                is_published=request.POST.get("is_published", False),
+                poster=request.FILES.get("poster"))
             new_post.save()
             return redirect("main:post_view")
-    context = {"today": today}
-    return render(request, "main/add_post.html", context)
+
+    except Exception as e:
+        print(e)
+    return render(request, "main/add_post.html")
+
+
+def post_detail_view(request: HttpRequest, post_id):
+
+    try:
+        post = Post.objects.get(pk=post_id)
+    except Post.DoesNotExist:
+        return render(request, "404.html")
+    except Exception as e:
+        print(e)
+
+    return render(request, "main/post_detail.html", {"post": post})
+
+
+def update_post_view(request: HttpRequest, post_id):
+
+    post = Post.objects.get(pk=post_id)
+
+    if request.method == "POST":
+        try:
+            post.title = request.POST["title"]
+            post.content = request.POST["content"]
+            post.is_published = request.POST.get("is_published", False)
+            post.save()
+            return redirect("main:post_detail_view", post_id=post.id)
+        except Exception as e:
+            print(e)
+
+    return render(request, 'main/update_post.html', {"post": post})
+
+
+def delete_post_view(request: HttpRequest, post_id):
+
+    try:
+        post = Post.objects.get(pk=post_id)
+        post.delete()
+    except Exception as e:
+        print(e)
+
+    return redirect("main:post_view")

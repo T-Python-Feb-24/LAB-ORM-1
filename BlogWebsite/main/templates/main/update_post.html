@@ -11,18 +11,23 @@
     <!-- Title input -->
     <div data-mdb-input-init class="form-outline mb-4">
       <h5>Title:</label>
-      <input type="text" id="title" name="title" class="form-control mt-1" required />
+      <input type="text" id="title" name="title" value="{{post.title}}"
+       class="form-control mt-1" required />
     </div>
 
     <!-- Message input -->
     <div data-mdb-input-init class="form-outline mb-4">
       <h5>Content:</h5>
-      <textarea class="form-control" name="content" id="content" rows="4" required></textarea>
+      <textarea class="form-control" name="content" id="content"
+       rows="4" required>{{post.content}}
+    </textarea>
     </div>
 
     <div class="form-outline mb-4">
       <h5>Poster Image:</h5>
-      <input name="poster" type="file" accept=".jpg, .jpeg, .png, .jpeg" class="form-control" required />
+      <img src="{{post.poster.url}}" alt="">
+      <input name="poster" value={{post.poster}} type="file" 
+        accept=".jpg, .jpeg, .png, .jpeg" class="form-control" />
     </div>
 
     <!-- Checkbox -->
@@ -31,9 +36,10 @@
         class="form-check-input me-2"
         type="checkbox"
         role="switch"
-        value="True"
+        value="{{post.is_published}}"
         id="is_published"
         name="is_published"
+        {% if post.is_published %}checked{% endif %}
       />
       <label class="form-check-label" for="is_published">
         Is it published?

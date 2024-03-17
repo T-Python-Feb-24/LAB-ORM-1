@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="row justify-content-center w-100">
+        
+        <div class=" post post-detail">
+            <div>
+                <h1>{{ post.title }}</h1>
+                <img src="{{ post.poster.url }}"/>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6>{{post.published_at}}</h6>
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'main:update_post_view' post.id %}" class="btn btn-primary">update</a>
+                        <a href="{% url 'main:delete_post_view' post.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                    
+                </div>
+                
+                <p>{{ post.content }}</p>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}

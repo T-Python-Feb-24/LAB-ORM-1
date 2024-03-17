@@ -1,5 +1,10 @@
+/* base */
 body {
   background-color: rgba(128, 128, 128, 0.422);
+}
+a{
+  text-decoration: none;
+  color: initial;
 }
 main {
   display: grid;
@@ -7,26 +12,93 @@ main {
   grid-template-rows: 4rem calc(100% - 8rem);
   grid-template-columns: 100%;
 }
-.table{
+/* index */
+.head{
   display: grid;
   grid-template-columns: 90% 10;
   grid-template-rows: 10%;
   max-width: 100%;
+  padding: 1rem;
   
+}
+
+.columns {
+  /* user setting */
+  --min-column-size: 200px;
+  --column-count: 4;
+  --gap: 2rem;
+  border-radius: 20px;
+  padding: 3rem;
+  /* calculations */
+  --breakpoint: calc(var(--min-column-size) * var(--column-count) + (var(--gap) * (var(--column-count) - 1)) );
+  --column-size: calc((100% / var(--column-count)) - var(--gap));
+  
+  display: grid;
+  justify-items: center;
+  gap: var(--gap);
+  
+  grid-template-columns: repeat(
+    auto-fit, 
+    minmax(
+      min(max(var(--column-size), (100% - var(--breakpoint)) * -999 ), 100%), 
+      1fr)
+    );
+}
+
+
+.post-index:hover{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transform: scale(1.05);
 
 }
 .post p span{
   font-weight: 600;
 }
 .post{
+  align-self: center;
+  justify-content: center;
+  display: grid;
+  gap: .5rem;
+  padding: 1.5rem;
   background-color: rgba(128, 128, 128, 0.574);
   border-radius: 30px;
+  min-height: 14rem;
+  height: fit-content;
+  align-content: center;
+  max-width: 20rem;
 }
-.post h2,.post p{
+.post-detail{
+  max-width:70%;
+  height: 80;
+}
+.post-detail img{
+  display: block;
+  max-height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.post-detail p{
+  text-align: left !important;
+}
+
+.post h3 , .post p{
   background-color: rgba(250, 244, 244, 0.46);
   border-radius: 40px;
   padding: 10px 20px;
+  
 }
+.post h3{
+  text-align: center
+}
+img{
+  display: block;
+  max-width: 100%;
+  margin-bottom: 20px;
+  border-radius: 30px;
+}
+/* form */
 .form-container {
   margin-top: 3rem;
   display: grid;
@@ -36,13 +108,16 @@ main {
   grid-row: 2;
 }
 .form-container form {
+  display: grid;
   align-content: center;
   justify-content: center;
+  grid-template-columns: 92%;
   max-width: 30rem;
   width: 50rem;
-  background-color: rgba(116, 152, 152, 0.541);
+  background-color: rgba(128, 128, 128, 0.574);
   border-radius: 30px;
   padding: 15px;
+ 
 }
 
 .div_published_at {
@@ -52,4 +127,5 @@ main {
   .form-container {
     grid-template-columns: 1% 98% 1%;
   }
+
 }
