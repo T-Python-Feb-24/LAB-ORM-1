@@ -9,6 +9,7 @@
         <div class="col">
             <div class="d-flex flex-column gap-2 mt-5 mb-3">
                 <h1>{{ post.title  }}</h1>
+                <h6 class="cat pt-1 pb-1 ps-3 pe-3 rounded-pill {{post.category}}">{{ post.category }}</h6>
                 <img src="{{ post.poster.url }}" class="w-100 rounded-4" style="height: 500px; object-fit: cover;"/>
                 <div class="d-flex justify-content-between">
                     <h6>{{post.published_at}}</h6>

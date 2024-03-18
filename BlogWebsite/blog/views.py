@@ -5,29 +5,33 @@ from .models import Post
 
 
 def home_page(request:HttpRequest):
-    posts = Post.objects.all()
-    context = {
-        "posts" : posts
-    }
-    return render(request, "blog/home_page.html", context)
+      #getting the Query Parameters
+    print(request.GET)
+
+    #limiting the result using slicing
+    posts = Post.objects.all().order_by('-published_at')[0:3]
+
+    return render(request, "blog/home_page.html", {"posts" : posts})
 
 
 def add_post_page(request: HttpRequest):
-    
     if request.method =="POST":
         try:
             new_post = Post(
                 title = request.POST["title"], 
                 content = request.POST["content"],  
                 is_published = request.POST.get("is_published", False),
-                poster=request.FILES["poster"]
+                category = request.POST["category"],
+                poster = request.FILES.get("poster", Post.poster.field.default)
             )
+
             new_post.save()
+
         except Exception as e:
             print(e)
         return redirect("blog:home_page")
     
-    return render(request, "blog/add_post_page.html")
+    return render(request, "blog/add_post_page.html",{"categories" : Post.categories.choices})
 
 
 def post_detail_page(request:HttpRequest, post_id):
@@ -47,13 +51,11 @@ def update_post_page(request:HttpRequest, post_id):
 
     if request.method == "POST":
         try:
-            if len(request.FILES) != 0:
-                if len(post.poster) > 0:
-                    os.remove(post.poster.path)
-                post.poster = request.FILES["poster"]
             post.title = request.POST["title"]
             post.content = request.POST["content"]
             post.is_published = request.POST.get("is_published", False)
+            post.poster = request.FILES.get("poster", post.poster)
+            post.category = request.POST["category"],
             post.save()
 
             return redirect("blog:post_detail_page", post_id=post.id)
@@ -61,7 +63,7 @@ def update_post_page(request:HttpRequest, post_id):
             print(e)
 
     
-    return render(request, 'blog/update_post_page.html', {"post" : post})
+    return render(request, 'blog/update_post_page.html', {"post" : post , "categories" : Post.categories.choices})
 
 def delete_post_page(request:HttpRequest, post_id):
 
@@ -73,3 +75,14 @@ def delete_post_page(request:HttpRequest, post_id):
     
 
     return redirect("blog:home_page")
+
+
+def all_posts_page(request: HttpRequest):
+
+    
+    if "cat" in request.GET:
+        posts = Post.objects.filter(category=request.GET["cat"])
+    else:
+        posts = Post.objects.all()
+
+    return render(request, "blog/all_posts_page.html", {"posts" : posts, "categories" : Post.categories.choices})

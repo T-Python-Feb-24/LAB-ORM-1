@@ -22,11 +22,18 @@
                     
                     <div class="mb-3">
                         {% if post.poster %}
-                            <img src="{{ post.poster.url }}" alt="image here" class="w-100 rounded-4" style="height: 500px; object-fit: cover;"/>
+                            <img src="{{ post.poster.url }}" alt="image here" class="w-50 rounded-4" style="height: 500px; object-fit: cover;"/>
                         {% endif %}
                         <h5>Choose Image:</h5>
                         <input name="poster"  type="file"  accept="image/*" class="form-control"/>
                     </div>
+
+                    <h5>Category</h5>
+                    <select name="category" class="form-select" required>
+                        {% for val, cat in categories %}
+                            <option value="{{val}}" {% if post.category == val %} selected {% endif %}>{{cat}}</option>
+                        {% endfor %}
+                    </select>
 
                     <input type="submit" class="btn btn-primary" value="Update" />
                 </form>
