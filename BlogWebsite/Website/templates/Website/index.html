@@ -12,14 +12,17 @@
         </div>
 
         <div class="col">
-            {% for  BlogWebsite in  blog %}
-                <div class="d-flex flex-column border border-1 p-3 mt-3 rounded-2">
-                    <h2> {{  BlogWebsite.title }}</h2>
-                    <p> {{  BlogWebsite.content }}</p>
-                    <p> {{  BlogWebsite.is_published}}</p>
-                    <p> {{  BlogWebsite.published_at }}</p>
-                    
-                </div> 
+            {% for  BlogWebsite in  blog %} 
+                <div class="col-4">
+                    <div class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100">
+                        <img src="{{ post.poster.url }}"  class="w-100 rounded-4"/>
+                        <h2><a href="{% url 'Website:post_detail' post.id  %}" class="text-decoration-none">{{BlogWebsite.title}}</a></h2>
+                        <h6>{{ post.published_at }}</h6>
+                        <h5>{{post.is_published}}</h5>
+                        
+                    <small>Category:{{ BlogWebsite.category}}</small><br/>
+                    </div>
+                </div>
             {% endfor %}
   
 
