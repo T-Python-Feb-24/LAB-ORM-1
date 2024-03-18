@@ -9,6 +9,6 @@ urlpatterns  = [
     path("post/detail/<post_id>/", views.detail_view, name="detail_view"),
     path("post/update/<post_id>/", views.update_view, name="update_view"),
     path("post/delete/<post_id>/", views.delete_view, name="delete_view"),
-    path("post/not/found/", views.not_found_view, name="not_found_view"),
-    
+    path("post/all/", views.all_view, name="all_view"),
+    path(r'^home/$',views.search_view, name="search_view" )
 ]

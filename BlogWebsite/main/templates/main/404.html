@@ -1,4 +1,8 @@
-<!-- 404.html template -->
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,11 +14,17 @@
    
 </head>
 <body>
-   
+
+    <div class="not_found">
+        <h4><a href="{% url 'main:home_view' %}">back to the home page</a></h4>
+       <img src="{% static 'images/page.png' %}"  class="page"/> <!-- مايضبط -->
         
         <h1>Sorry Page Not Found</h1>
         <p>We couldn't find the page you were looking for.</p>
+
+      
         
     </div>
 </body>
 </html>
+{% endblock%}

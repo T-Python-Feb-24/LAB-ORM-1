@@ -1,4 +1,3 @@
-
 {% extends 'main/base.html' %}
 
 {% block content %}
@@ -6,7 +5,7 @@
         <h1>Update post</h1>
         <div class="col">
 
-            <form action="{% url 'main:update_view' post.id %}" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+            <form action="{% url 'main:update_view' post.id %}" method="post" class="d-flex flex-column gap-2" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 <input name="title" type="text" placeholder="Title" class="form-control" required minlength="5" value="{{ post.title }}" />
@@ -17,7 +16,17 @@
                     <label class="form-check-label" for="flexSwitchCheckDefault">is publihed</label>
                 </div>
 
-                <input name="poster" type="file" accept="image/*" class="form-control" required  value="{{ post.poster }}"/>
+                <h5>Choose Image:</h5>
+                <img src="{{ post.poster.url }}" class="thumb" />
+                <input name="poster"  type="file"  accept="image/*" class="form-control"  />
+
+                <h5>Category</h5>
+                <select name="category" class="form-select" required>
+                    {% for val, cat in categories %}
+                        <option value="{{val}}" {% if post.category == val %} selected {% endif %}>{{cat}}</option>
+                    {% endfor %}
+                </select>
+
                 <input type="submit" class="btn btn-primary" value="Update" />
             </form>
 

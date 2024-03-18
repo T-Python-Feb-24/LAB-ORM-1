@@ -1,0 +1,43 @@
+.not_found{
+    margin-left: 350px;
+    color: brown;
+}
+.not_found a{
+    background-color: rgb(112, 113, 113);
+    border-radius: 33px;
+    margin-left: 444px;
+    text-decoration: none;
+    padding: 10px;
+    
+}
+.page{
+    width: 300px;
+    margin-bottom: 44px;
+
+}
+.cat {
+    background-color: rgb(21, 124, 155);
+    color:white;
+    align-self: flex-start;
+}
+.General{
+    background-color: rgb(103, 91, 91);
+}
+.Tech {
+    background-color: orangered;
+}
+
+.Fashion a{
+    background-color: purple;
+}
+
+.Science {
+    background-color: darkolivegreen;
+}
+.Cluture{
+    background-color: aqua;
+
+}
+.Food{
+    background-color: rgb(221, 228, 133);
+}
