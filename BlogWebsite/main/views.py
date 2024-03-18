@@ -26,7 +26,7 @@ def add_post_view(request: HttpRequest):
         new_post.save()
         return redirect("main:post_view")
 
-    return render(request, "main/add_post.html")
+    return render(request, "main/add_post.html", {"categories": Post.category_choices.choices})
 
 
 def post_detail_view(request: HttpRequest, post_id):
@@ -42,9 +42,9 @@ def post_detail_view(request: HttpRequest, post_id):
 
 
 def update_post_view(request: HttpRequest, post_id):
-    post = Post.objects.get(pk=post_id)
-    if request.method == "POST":
-        try:
+    try:
+        post = Post.objects.get(pk=post_id)
+        if request.method == "POST":
             post.title = request.POST.get("title")
             post.content = request.POST.get("content")
             post.category = request.POST.get("category")
@@ -53,10 +53,12 @@ def update_post_view(request: HttpRequest, post_id):
                 post.poster = request.FILES.get("poster")
             post.save()
             return redirect("main:post_detail_view", post_id)
-        except Exception as e:
-            print(e)
-
-    return render(request, 'main/update_post.html', {"post": post})
+        return render(request, 'main/update_post.html', {"post": post,
+                                                         "categories": Post.category_choices.choices})
+    except Post.DoesNotExist:
+        return render(request, "404.html")
+    except Exception as e:
+        print(e)
 
 
 def delete_post_view(request: HttpRequest, post_id):
@@ -64,6 +66,8 @@ def delete_post_view(request: HttpRequest, post_id):
     try:
         post = Post.objects.get(pk=post_id)
         post.delete()
+    except Post.DoesNotExist:
+        return render(request, "404.html")
     except Exception as e:
         print(e)
 

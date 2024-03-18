@@ -14,14 +14,11 @@
 
     <!-- catagory input -->
     <div class="form-outline mb-4">
-      <h5>category:</label>
+      <h5>category:</h5>
       <select id="category" name="category" class="form-select mt-1">
-        <option value="General">General</option>
-        <option value="Science">Science</option>
-        <option value="Culture">Culture</option>
-        <option value="Food">Food</option>
-        <option value="Tech">Tech</option>
-        <option value="Fashion">Fashion</option>
+        {% for val,cat in categories %}
+        <option value="{{val}}" {% if post.category == val %} selected {% endif %}>{{cat}}</option>
+        {% endfor %}
       </select>
     </div>
 
