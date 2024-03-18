@@ -9,7 +9,7 @@
             <h1>Update post</h1>
             <div class="col">
     
-                <form action="{% url 'blog:update_post_page' post.id %}" method="post" class="d-flex flex-column gap-2">
+                <form action="{% url 'blog:update_post_page' post.id %}" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
                     {% csrf_token %}
     
                     <input name="title" type="text" placeholder="Title" class="form-control" required minlength="5" value="{{ post.title }}" />
