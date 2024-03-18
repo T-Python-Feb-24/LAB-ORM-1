@@ -1,0 +1,22 @@
+p {
+    white-space: pre-line;
+}
+.hero {
+    height: 200px;
+    object-fit: cover;
+}
+.video-container{
+    position: fixed;
+    left:0px;
+    top:0px;
+    z-index: -100;
+}
+.video-container video{
+    width: 100vw;
+}
+.img-not-found{
+    height: 250px;
+}
+.not-found-text{
+    font-size: 40px;
+}
