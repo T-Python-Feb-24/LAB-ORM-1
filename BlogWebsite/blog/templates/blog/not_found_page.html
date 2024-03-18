@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+
+{% block title %} Page NOT Found  {% endblock %}
+
+{% block content %}
+
+	<div class="containe d-flex justify-content-center align-items-center mt-5 mb-5" >
+        <div class="row ">
+
+			<div class="col-md-12 text-center ">
+                <img src="/static/images/giphy.gif" class="gif"  />
+				<div class="lc-block mb-4">
+					<div editable="rich">
+						<h1 class="fw-bold display-1">404</h1>
+					</div>
+				</div>
+				<div class="lc-block">
+					<div editable="rich">
+						<p class="h2">Sorry, we can’t find the page you’re looking for. </p>
+						<p class="lead">Click the button below to go back to the homepage</p>
+					</div>
+				</div>
+				<div class="lc-block">
+					<a class="btn btn-primary" href="/" role="button">Click me, I'm a button</a>
+				</div><!-- /lc-block -->
+			</div><!-- /col -->
+		</div>
+	</div>
+
+
+ 
+
+{% endblock %}

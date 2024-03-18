@@ -36,7 +36,7 @@ def post_detail_page(request:HttpRequest, post_id):
         #getting a  post detail
         post = Post.objects.get(pk=post_id)
     except Post.DoesNotExist:
-        post = None
+        return render(request, "blog/not_found_page.html")
     except Exception as e:
         print(e)
 
