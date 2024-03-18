@@ -1,64 +1,39 @@
 {% extends 'main/base.html' %}
-{% load static %}
-{% block title %}Add Post - BlogWebsite{% endblock %}
 
 {% block content %}
-<div class="container w-50 p-2">
-    <div class="row justify-content-center" id="row_style">
-        <h4 class="text-center">Submit New Post</h4>
-        <div class="col-md-6">
-            <form method="post">
+    <div class="row">
+        <h1>Add new post</h1>
+        <div class="col">
+
+            <form action="{% url 'main:add_post' %}" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="title">Title:</label>
-                    <input type="text" id="title" name="title" class="form-control" required>
+
+                <input name="title" type="text" placeholder="Title" class="form-control" required minlength="5" />
+                <textarea name="content" class="form-control" required minlength="20"></textarea>
+
+                <div class="form-check form-switch">
+                    <input name="is_published" value="True" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">is publihed</label>
                 </div>
-                <div class="form-group">
-                    <label for="content">Content:</label>
-                    <textarea id="content" name="content" class="form-control" required></textarea>
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="is_published" name="is_published">
-                    <label class="form-check-label" for="is_published">Publish Now</label>
-                </div>
-                <div class="form-group text-center">
-                    <button type="submit" class="btn btn-primary mt-3">Add Post</button>
-                </div>
+                
+                <h5>Choose Category:</h5>
+                <input list="browsers" name="browser" id="browser" class="form-control" style="width: 200px;">
+                <datalist id="browsers">
+                    <option value="General">
+                    <option value="Science">
+                    <option value="Culture">
+                    <option value="Food">
+                    <option value="Tech">
+                    <option value="Fashion">
+                </datalist>
+                <h5>Choose Image:</h5>
+                <input name="poster"  type="file"  accept="image/*" class="form-control" required />
+
+                <input type="submit" class="btn btn-primary" value="Add Post" />
             </form>
+
         </div>
+
+
     </div>
-</div>
-
-{% endblock %}
-
-{% block extra_css %}
-<link rel="stylesheet" href="https://www.shieldui.com/shared/components/latest/css/light/all.min.css" />
-<style>
-    #row_style {
-        
-        
-        border-radius: 20px;
-        background-color: rgba(237, 237, 242, 0.684); 
-        background-color: #fff;
-        color: rgb(0, 0, 0);
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-
-    .btn-primary {
-        background-color: blueviolet; /* Customize your button color */
-        margin: 20px;
-    }
-</style>
-{% endblock %}
-
-{% block extra_js %}
-<script src="https://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // Initialize Shield UI Editor
-        $("#editor").shieldEditor({
-            height: 260
-        });
-    });
-</script>
 {% endblock %}

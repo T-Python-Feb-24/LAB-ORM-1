@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <div class="d-flex flex-column gap-2 border-1">
+                <h1>{{ post.title }}</h1>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" class="w-100 rounded-4" />
+                {% endif %}
+                <div class="d-flex justify-content-between">
+                    <h6>{{ post.published_at }}</h6>
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'main:update_post' post.id %}" class="btn btn-primary">Update</a>
+                        <a href="{% url 'main:delete_post' post.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+                <p>{{ post.content }}</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
