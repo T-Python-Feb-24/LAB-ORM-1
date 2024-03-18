@@ -1,26 +1,33 @@
 {% extends 'main/base.html' %} {% block title %} blog {% endblock %}
 {% block content %}
-
    <div class="head">
-        <div class="d-flex m-lg-3 justify-content-between align-items-center ">
-            <h1>posts</h1>
-            <a class="btn btn-secondary" href="{% url 'main:add_post_view' %}">Add post</a>
+    <div>
+            <div class="d-flex align-items-baseline gap-2">
+                <h1>My Personal Blog!</h1>
+                <h4>Enjoy and have a good time</h4>
+            </div>
+            <img src="/static/images/bg-blogger.jpeg" class="w-100 hero rounded-4" />
         </div>
-
+        </div>
+        <div class="head">
+        <div class="d-flex justify-content-between align-items-center ">
+            <h1>Latest Posts</h1>
+            <a class="btn btn-secondary" href="{% url 'main:all_posts_view' %}">View All</a>
+        </div>
+</div>
         <div class="columns">
             {% for post in posts %}
-                <a href="{% url "main:post_detail_view" post.id%}"><div class="post post-index">
+                <a href="{% url "main:post_detail_view" post.id%}"><div class="card post post-index">
                     <img src="{{ post.poster.url }}" alt="" srcset="">
-                    <h3>{{ post.title }}</h3>
-                    <div class="d-flex flex-column">
+                    <h4>{{ post.title }}</h4>
+                    <div class="d-flex justify-content-between align-items-center">
                     <h6>{{post.published_at}}</h6>
-                    <h6>{{post.category}}</h6>
+                    <h6 class="cat {{post.category}}">{{post.category}}</h6>
                     </div>
-                    <p>{{ post.content }}</p>
                     {% if post.is_published %} 
-                    <p style="color:green;"> it published </p>
+                    <p style="color:green;"> Published </p>
                     {% else %}
-                    <p style="color:red;">it not published</p>
+                    <p style="color:red;"> Not Published</p>
                     {% endif %}
                       
                     

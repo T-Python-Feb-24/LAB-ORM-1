@@ -1,28 +1,55 @@
 from django.shortcuts import redirect, render
 from django.http import HttpRequest, HttpResponse
 from .models import Post
-from datetime import date
-
 # Create your views here.
 
 
 def post_view(request: HttpRequest):
-    posts = Post.objects.all()
-    context = {
-        "posts": posts
-    }
-    return render(request, "main/index.html", context)
+    posts = Post.objects.all().order_by('-published_at')[0:3]
+    return render(request, "main/index.html", {"posts": posts})
+
+
+def search(req: list[str]):
+    if "cat" in req:
+        posts = Post.objects.filter(category=req["cat"])
+        active_cat = req["cat"]
+        return posts, active_cat
+    else:
+        posts = Post.objects.all()
+        active_cat = "All"
+    if "title" in req:
+        posts = Post.objects.filter(title__contains=req["title"])
+    if "publish_date" in req:
+        posts = Post.objects.filter(published_at=req["published_at"])
+    active_cat = "All"
+    return posts, active_cat
+
+
+def all_posts_view(request: HttpRequest):
+    posts, active_cat = search(request.GET)
+
+    return render(request, "main/all_posts.html",
+                  {"posts": posts, "active_cat": active_cat,
+                   "categories": Post.category_choices.choices})
 
 
 def add_post_view(request: HttpRequest):
 
     if request.method == "POST":
-        new_post = Post(
-            title=request.POST.get("title"),
-            category=request.POST.get("category"),
-            content=request.POST.get("content"),
-            is_published=request.POST.get("is_published", False),
-            poster=request.FILES.get("poster"))
+        if request.FILES.get("poster") != None:
+            poster = request.FILES.get("poster")
+            new_post = Post(
+                title=request.POST.get("title"),
+                category=request.POST.get("category"),
+                content=request.POST.get("content"),
+                is_published=request.POST.get("is_published", False),
+                poster=request.FILES.get("poster"))
+        else:
+            new_post = Post(
+                title=request.POST.get("title"),
+                category=request.POST.get("category"),
+                content=request.POST.get("content"),
+                is_published=request.POST.get("is_published", False))
         new_post.save()
         return redirect("main:post_view")
 
