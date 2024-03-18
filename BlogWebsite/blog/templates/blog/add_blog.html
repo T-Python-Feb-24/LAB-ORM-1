@@ -7,22 +7,36 @@
 {% block content %}
   <div class="container w-50 mt-5">
     <h1>Add Blog Post</h1>
-    <form method="post">
+    <form action="{% url 'blog:add_blog' %}" method="post" enctype="multipart/form-data" class="d-flex flex-column gap-2">
         {% csrf_token %}
         <div class="form-group">
             <label class="form-label" for="title">Title:</label><br>
-            <input class="form-control" type="text" id="title" name="title"><br>
+            <input class="form-control" name="title" id="title" type="text" placeholder="Title" class="form-control" required minlength="5" />
+
         </div>
         <div class="form-group">
             <label class="form-label" for="content">Content:</label><br>
-            <textarea class="form-control" id="content" name="content"></textarea><br>
+            <textarea class="form-control" id="content" name="content" class="form-control" required minlength="20"></textarea>
+
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="is_published" name="is_published">
-            <label class="form-check-label" for="is_published">Publish</label><br>
+          
+              <input name="is_published" value="True" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">is publihed</label>
         </div>
+        
+        <h5>Choose Image:</h5>
+        <input name="poster"  type="file"  accept="image/*" class="form-control" required />
       </p> 
-        <input class="btn btn-primary" type="submit" value="Submit">
+      <h5>Category</h5>
+                <select name="category" class="form-select" required>
+                    {% for val, cat in categories %}
+                        <option value="{{val}}">{{cat}}</option>
+                    {% endfor %}
+                </select>
+
+      <input type="submit" class="btn btn-primary" value="Add Post" />    
     </form>
+
   </div>
 {% endblock %}

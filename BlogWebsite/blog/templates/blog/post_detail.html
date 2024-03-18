@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <div class="row">
+        
+        <div class="col">
+            <div class="d-flex flex-column gap-2 m-5">
+                <h1>{{ post.title  }}</h1>
+                <div class=" justify-content-between">
+                    <h6>{{post.published_at}}</h6>
+                    <h6>{{ post.category }}</h6>
+                    <img class="w-25 " src="{{post.poster.url}}" alt="">
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'blog:update_post_view' post.id %}" class="btn btn-primary">update</a>
+                        <a href="{% url 'blog:delete_post_view' post.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                    
+                </div>
+                
+                <p>{{ post.content }}</p>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}
