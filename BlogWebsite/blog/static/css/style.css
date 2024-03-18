@@ -1,0 +1,10 @@
+
+.hero {
+    height: 500px;
+    object-fit: cover;
+}
+
+p {
+    white-space: pre-line;
+}
+

@@ -6,22 +6,24 @@
 {% block content %}
     <div class="container mt-5 pt-5">
         <div class="row">
-            <div class="col-6">
-                <h1>Add post</h1>
+            <h1>Add post</h1>
+            <div class="col">
                 
-                <form action="{% url 'blog:add_post_page' %}" method="POST" class="d-flex flex-column gap-2">
-                  
+                <form action="{% url 'blog:add_post_page' %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2"> 
                 {% csrf_token %}
-                <input type="text" name="title" placeholder="title" class="form-control"/>
+
+                <input name="title" type="text" placeholder="title" class="form-control" required minlength="5"/>
         
-                <textarea name="content" placeholder="content" class="form-control"></textarea>
+                <textarea name="content" placeholder="content" class="form-control" required minlength="20"></textarea>
                 
-                <input type="datetime-local" name="published_at" value="datetime-local" class="form-control"/>
-                
-                <input type="hidden" name="is_published" value="0"  />
-                <input type="checkbox" name="is_published" value="1" id="is_published"  />
-                <span><label for="is_published"  > is_published ?</label></span>
-           
+                <div class="form-check form-switch">
+                    <input name="is_published" value="True" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">is publihed</label>
+                </div>
+
+                <h5>Choose Image:</h5>
+                <input name="poster"  type="file"  accept="image/*" class="form-control" required />
+
                 <input type="submit" value="Add Post"  class="btn btn-primary"/>
                 </form>
             </div>
