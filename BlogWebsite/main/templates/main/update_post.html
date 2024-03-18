@@ -4,17 +4,34 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="col">
-        <div class="d-flex flex-column p-3 mt-3">
-            <input type="text" name ="title" value ="{{ post.title }}" >
-            <input type="file" name ="poster" accept='image/*' value ="{{post.poster.url}}" >
-            <textarea name="content" placeholder="content" class="form-control">  {{ post.content }}</textarea>
-            <h6>{{post.published_at}}</h6>
-            <a href="{% url "main:update_post" post.id %}" class="btn btn-primary" class='form-control'>Update</a>
+    <div class="row">
+        <div class="col">
+            <form action="{% url "main:update_post" post.id %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+                {% csrf_token %}
+                <div class="d-flex flex-column p-3 mt-3">
+                   
+                    <!-- title & image-->
+                    <input type="text" name ="title" value ="{{ post.title }}" >
+                    <img src="{{post.poster.url}}" class="thumb">
+                    <input type="file" name ="poster" accept='image/*' >
+                    
+                    <!--content-->
+                    <textarea name="content"  class="form-control">{{ post.content }}</textarea>
+                    <h6>{{post.published_at}}</h6>
+                    
+                    <!--is_published-->
+    
+                    <div class="form-check form-switch">
+                        <input name="is_published" value='True' class="form-check-input" type="checkbox" role="switch" required id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">publish</label>
+                    </div>
+                    
+                    <!--update btn-->
+                    <input type="submit" class="btn btn-primary" value="update">
+                </div>
+            </form>       
         </div> 
-    </div>  
-</div>
+    </div>
 
 {% endblock  %}
 
