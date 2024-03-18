@@ -1,0 +1,26 @@
+{% extends "main/base.html" %}
+
+{% block title %}Post detail{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col">
+        <div class="d-flex flex-column p-3 mt-3">
+            <h1> {{ post.title }}</h1>
+            <img src="{{post.poster.url}}" class="w-100"/>
+            <p> {{ post.content }}</p>
+            <h6>{{post.published_at}}</h6>
+        </div> 
+
+        <div>
+            <a href="{% url "main:delete_post" post.id %}"class='btn btn-danger'>Delete</a>
+            <a href="{% url "main:update_post" post.id %}"class='btn btn-primary'>Update</a>
+        </div>
+
+    </div>  
+</div>
+
+{% endblock  %}
+
+

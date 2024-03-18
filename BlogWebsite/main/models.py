@@ -7,7 +7,6 @@ class Post(models.Model):
     content = models.TextField()
     is_published = models.BooleanField()
     published_at = models.DateTimeField(auto_now_add=True)
-
-    
+    poster = models.ImageField(upload_to="images/",default="images/blog-pic.avif")
 
     
