@@ -1,0 +1,63 @@
+* {
+    font-family:'Gill Sans';
+}
+.cat {
+    background-color: rgb(21, 124, 155);
+    color:white;
+    align-self: flex-start;
+}
+
+.General {
+    background-color: rgba(255, 0, 0, 0.473);
+}
+.General:hover {
+    color: rgba(255, 0, 0, 0.473);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.473);
+}
+
+.Science {
+    background-color: rgba(228, 183, 37, 0.473);
+}
+.Science:hover {
+    color: rgba(228, 183, 37, 0.836);
+    box-shadow: 0 0 20px rgba(228, 183, 37, 0.473);
+}
+
+.Culture {
+    background-color: rgba(0, 128, 0, 0.473);
+}
+.Culture:hover {
+    color: rgba(0, 128, 0, 0.473);
+    box-shadow: 0 0 20px rgba(0, 128, 0, 0.473);
+}
+
+.Food {
+    background-color: rgba(173, 216, 230, 0.623);
+}
+.Food:hover {
+    color: rgba(109, 138, 148, 0.623);
+    box-shadow: 0 0 20px rgba(173, 216, 230, 0.623);
+}
+
+.Tech {
+    background-color: rgba(111, 111, 117, 0.473);
+}
+.Tech:hover {
+    color: rgba(0, 0, 255, 0.473);
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0.473);
+}
+
+.Fashion {
+    background-color: rgba(128, 0, 128, 0.473);
+}
+.Fashion:hover {
+    color: rgba(128, 0, 128, 0.473);
+    box-shadow: 0 0 20px rgba(128, 0, 128, 0.473);
+}
+
+.thumb {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 15px;
+}

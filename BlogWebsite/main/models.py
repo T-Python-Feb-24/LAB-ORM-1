@@ -6,13 +6,15 @@ class Post(models.Model):
     content = models.TextField()
     is_published = models.BooleanField()
     published_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='images/', default='images/default.jpg')
+    image = models.ImageField(upload_to='images/', default='images/default_img.jpg')
     
-    class Category(models.TextChoices):
-        GENERAL = 'General'
-        SCIENCE = 'Science'
-        CULTURE = 'Culture'
-        FOOD = 'Food'
-        TECH = 'Tech'
-        FASHION = 'Fashion'
-    category_choices = models.CharField(max_length = 10, choices = Category, default = Category.GENERAL)
+    # class Category(models.TextChoices):
+    #     GENERAL = 'General'
+    #     SCIENCE = 'Science'
+    #     CULTURE = 'Culture'
+    #     FOOD = 'Food'
+    #     TECH = 'Tech'
+    #     FASHION = 'Fashion'
+
+    Categories = models.TextChoices('Category', ["General","Science", "Culture", "Food","Tech","Fashion"]) 
+    category = models.CharField(max_length = 64, choices = Categories.choices)

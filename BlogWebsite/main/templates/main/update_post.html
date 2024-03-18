@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% block title %} Update Post {% endblock %}
+{% block title %} BLOG | Update Post {% endblock %}
 
 
 {% block content %}
@@ -19,10 +19,19 @@
                     <label class="form-check-label" for="flexSwitchCheckDefault">is publihed</label>
                 </div>
 
-                <h5>Choose Image:</h5>
-                <input name="image"  type="file" accept="image/*" class="form-control" value="{{post.image}}"/>
+                <h5>Category:</h5>
+                <select name="category" class="form-select" aria-label="Default select example">
+                    {% for val, cat in category %}
+                        <option value={{val}} {% if post.category == val %} selected {% endif %}>{{cat}}</option>
+                    {% endfor %}
+                </select>
 
-                <input type="submit" class="btn btn-primary" value="Update" />
+
+                <h5>Choose Image:</h5>
+                <img src="{{ post.image.url }}" class="thumb" />
+                <input name="image"  type="file" accept="image/*" class="form-control"/>
+
+                <input type="submit" class="btn" value="Update" style="color:aliceblue; background: linear-gradient(#e66464b2, #e5b791);"/>
             </form>
 
         </div>
