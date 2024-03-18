@@ -1,0 +1,28 @@
+{% extends 'Website/base.html' %}
+
+{% block title %}  {% endblock %}
+
+{% block content %}
+    <div class="row">
+        
+        <div class="col">
+            <div class="d-flex flex-column gap-2">
+                <h1>{{ post.title  }}</h1>
+                <img src="{{ post.poster.url }}"  class="w-100 rounded-4"/>
+                <div class="d-flex justify-content-between">
+                    <h6>{{post.published_at}}</h6>
+                    <div class="d-flex gap-2">
+                        <a href="{% url 'Website:update_post' post.id %}" class="btn btn-primary">update</a>
+                        <a href="{% url 'Website:delete_post' post.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                    
+                </div>
+                
+                <p>{{ BlogWebsite.content }}</p>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}
