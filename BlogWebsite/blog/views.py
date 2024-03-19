@@ -38,7 +38,7 @@ def add_post(request):
         content = request.POST.get('content')
         category = request.POST.get('category')
         is_published_str = request.POST.get('is_published')
-        
+        poster = request.FILES.get('poster')  
         is_published = is_published_str.lower() == 'true'
         
         post = Post.objects.create(
@@ -46,12 +46,14 @@ def add_post(request):
             content=content,
             category=category,
             is_published=is_published,
+            poster=poster,  
             published_at=timezone.now()
         )
         
         return redirect('home')
     
     return render(request, 'blog/add_post.html', {'CATEGORY_CHOICES': CATEGORY_CHOICES})
+
 #################################################################
 def post_detail(request, pk):
     try:

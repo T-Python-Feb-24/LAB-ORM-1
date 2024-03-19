@@ -11,6 +11,4 @@ urlpatterns = [
     path('post/<int:pk>/update/', views.post_update, name='post_update'),
     path('post/<int:pk>/delete/', views.post_delete, name='post_delete'),
      path('all-posts/', views.all_posts, name='all_posts'),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
