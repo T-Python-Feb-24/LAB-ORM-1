@@ -84,19 +84,9 @@ def all_posts_view(request: HttpRequest):
         posts = Post.objects.filter(category=request.GET["cat"])
     else:
         posts = Post.objects.all()
-    
-    limit = 3
-    pages_count = [str(n) for n in range(1, round(posts.count()/limit)+1)] 
-    start = (int(request.GET.get("page", 1))-1)*limit
-    end = (start)+limit
-
-    print(list(pages_count))
 
 
-    posts = posts[start:end]
-
-
-    return render(request, "main/all_posts.html", {"posts" : posts, "categories" : Post.categories.choices, "pages_count":pages_count})
+    return render(request, "main/all_posts.html", {"posts" : posts, "categories" : Post.categories.choices})
 
 
 def posts_search_view(request:HttpRequest):
