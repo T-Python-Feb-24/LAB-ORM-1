@@ -9,6 +9,23 @@
         <link rel="icon" href="images/cat.jpeg" type="img/icon">
 
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <style>
+            .HS {
+                animation: fade-out 0.6s ease-in;
+            }
+            @keyframes fade-out {
+
+                from {
+                    opacity: 0;
+                    transform: translate(0, 100px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translate(0, 0px);
+                }
+            }
+        </style>
 
         <!-- Google Icon -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -17,10 +34,11 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
 
-    <body style="background: linear-gradient(#ffffff, #9198e5); background-attachment:  fixed;">
+    <body style="background: linear-gradient(#ffffff, #5e65b6); background-attachment:  fixed;">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-md fixed-top" data-bs-theme="dark" style="background: linear-gradient(#e66465, #e5b791);">
+    <nav class="navbar navbar-expand-md fixed-top" data-bs-theme="dark" 
+    style="background: linear-gradient(#191970, #171765, #14145a, #12124e, #0f0f43, #0d0d38, #0a0a2d, #080822, #050516, #02020b);">
 
         <!-- Container wrapper -->
         <div class="container-fluid">
@@ -39,11 +57,15 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'main:all_posts' %}">POST</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'main:search' %}">SEARCH</a>
-                    </li>
+                    </li> -->
                 </ul>
             </div> <!-- Collapsible wrapper -->
+            <form action="{% url 'main:search' %}" class="d-flex" role="search" method="get">
+                <input class="form-control me-2 bg-light text-dark" type="search" placeholder="Search" aria-label="Search" name="search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
         </div> <!-- Container wrapper -->
     </nav> <!-- Navbar -->
 

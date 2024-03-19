@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 
 from .models import Post
-from django.db.models import Q
+
+from datetime import date, timedelta
+# from django.db.models import Q
 # Create your views here.
 
 def home(request:HttpRequest):
@@ -90,19 +92,38 @@ def all_posts(request: HttpRequest):
         posts = Post.objects.filter(category = request.GET["cat"])
     else:
         posts = Post.objects.all().order_by("-published_at") 
+    
+        #calculate the page content
+    limit = 3
+    pages_count = [str(n) for n in range(1, round(posts.count()/limit)+1)] #use list comprehension to convert number to string number
+    start = (int(request.GET.get("page", 1))-1)*limit
+    end = (start)+limit
 
-    return render(request, "main/all_post.html", {"posts" : posts, "category" : Post.Categories.choices})
+    print(list(pages_count))
+
+
+    #apply the limit/slicing
+    posts = posts[start:end]
+
+    # print(start, end)
+
+    return render(request, "main/all_post.html", {"posts" : posts, "category" : Post.Categories.choices, "pages_count":pages_count})
 
 def search(request: HttpRequest):
-    if 'q' in request.GET:
-        q = request.GET['q']
-        # posts = Post.objects.filter(title__icontains=q)
-        m_q = Q(Q(title__icontains=q) | Q(published_at__icontains=q) | Q(category__icontains=q))
-        posts = Post.objects.filter(m_q)
-    else:
-        posts = Post.objects.all().order_by('-published_at')
+    posts = []
+    try: 
+        if "search" in request.GET:
+            posts = Post.objects.filter(title__contains=request.GET["search"])
+
+        if "date" in request.GET and len(request.GET["date"]) > 4:
+            first_date = date.fromisoformat(request.GET["date"])
+            end_date = first_date + timedelta(days=1)
+            posts = posts.filter(published_at__gte=first_date, published_at__lt=end_date)
+    except Exception as e:
+        print(e)
     
-    return render(request,"main/search_result.html",{"posts":posts})
+    context = {"posts" : posts}
+    return render(request,"main/search_result.html", context)
 
 # def view_404(request, exception):
 #     return render(request, '404.html')

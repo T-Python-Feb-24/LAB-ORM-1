@@ -4,10 +4,17 @@
 
 {% block content %}
 <div class="row">
-    <form class="d-flex" role="search">
-        <input class="form-control me-2" name="q" type="search" placeholder="Search by: title - date - category" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
+    <div class="d-flex flex-column gap-2">
+            
+        <h1>Search</h1>
+        <form action="{% url 'main:search' %}"  method="get" class="d-flex gap-2">
+            <input type="search" class="form-control" name="search" value="{{request.GET.search}}" placeholder="Search..."/>
+            <input type="date" class="form-control" style="width: 200px;" name="date" value="{{request.GET.date}}"/>
+            <input type="submit" value="Search" class="btn btn-outline-dark" />
+        </form> 
+
+        <h2>Search results for {{ request.GET.search }} ({{ posts.count }}) </h2>
+    </div>
 </div>
 
 <div class="row">
