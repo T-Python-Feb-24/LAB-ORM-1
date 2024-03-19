@@ -2,10 +2,12 @@ from django import forms
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from .models import Post
-from datetime import date
+from datetime import datetime
 from django.db.models import Q
 from django.utils.timezone import now
+
 def home(request: HttpRequest):
+    posts = Post.objects.all()
     print(request.GET)
     posts = Post.objects.all().order_by('-published_at')[0:3]
     
@@ -84,14 +86,25 @@ def view_404(request, exception):
     return render(request, '404.html')
 
 def search_posts(request):
-    query = request.GET.get('q')
-    published_at = request.GET.get('published_at')
+    query = request.GET.get('q', '')  # Get the title query, default to empty string if not provided
+    publish_date_str = request.GET.get('publish_date', '')  # Get the publish date string from the form
+
+    search_results = Post.objects.all()
 
     
-    search_results = Post.objects.all()
     if query:
         search_results = search_results.filter(title__icontains=query)
-    if  published_at:
-        search_results = search_results.filter(published_at=published_at)
 
-    return render(request, 'main/search.html', {'search_results': search_results})
+   
+    if publish_date_str:
+        try:
+            publish_date = datetime.strptime(publish_date_str, '%Y-%m-%d').date()
+            search_results = search_results.filter(published_at__date=publish_date)
+        except ValueError:
+            
+            pass
+
+    return render(request, 'main/search.html', {
+        'search_results': search_results,
+        'query': query,
+    })
