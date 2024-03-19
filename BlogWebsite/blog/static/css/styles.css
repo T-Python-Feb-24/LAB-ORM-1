@@ -43,8 +43,7 @@ body {
 .add-post-link:hover {
     background-color: #0056b3;
 }
-header {
-    background-color: #007bff;
+.my-header {    background-color: #007bff;
     color: #fff;
     padding: 10px 20px;
     display: flex;
@@ -52,8 +51,7 @@ header {
     align-items: center;
 }
 
-footer {
-    background-color: #f9f9f9;
+.my-footer {    background-color: #f9f9f9;
     color: #333;
     padding: 10px 20px;
     text-align: center;
@@ -96,4 +94,50 @@ footer {
 
 .back-button:hover {
     background-color: #999;
+}
+.post-box {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    transition: transform 0.3s; 
+}
+
+.post-box:hover {
+    transform: scale(1.05); 
+}
+
+.post-image {
+    width: 30%;
+    padding: 20px;
+}
+
+.post-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.post-details {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.read-more-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.read-more-button:hover {
+    background-color: #0056b3;
+}
+
+.post-image {
+    max-width: 200px; 
+    height: auto; 
 }
