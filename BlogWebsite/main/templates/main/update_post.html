@@ -16,8 +16,22 @@
                     <label class="form-check-label" for="flexSwitchCheckDefault">is publihed</label>
                 </div>
 
+                <select class="form-select" aria-label="Default select example">
+                    {% for val, cat in category%}
+                    <option value="{{ val }}">{{ cat }}</option>
+                    {% endfor %}
+                  </select>
+
                 <h5>Choose Image:</h5>
                 <input name="poster"  type="file"  accept="image/*" class="form-control" required />
+                
+
+                <select name="category" class="form-select" required>
+                    {% for val, cat in categories %}
+                        <option value="{{val}}" {% if post.category == val %} selected {% endif %}>{{cat}}</option>
+                    {% endfor %}
+                </select>
+
                 
                 <input type="submit" class="btn btn-primary" value="Update" />
             </form>

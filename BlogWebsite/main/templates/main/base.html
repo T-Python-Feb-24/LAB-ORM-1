@@ -17,13 +17,13 @@
             <a href="/">Home</a>
           </li>
           <li>
-            <a href="">About</a>
+            <a href="{% url 'main:add_post_view' %}">Add a post</a>
           </li>
           <li>
-            <a href="">Services</a>
-          </li>
-          <li>
-            <a href="">Contact</a>
+            <form action="{% url 'main:posts_search_view' %}" class="d-flex" role="search" method="get">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" >
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
           </li>
         </ul>
       </nav>
