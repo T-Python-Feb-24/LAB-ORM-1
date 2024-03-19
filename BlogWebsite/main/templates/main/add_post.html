@@ -19,6 +19,13 @@
                 <h5>Choose Image:</h5>
                 <input name="poster"  type="file"  accept="image/*" class="form-control" required />
 
+                <h5>Category</h5>
+                <select name="category" class="form-select" required>
+                    {% for val, cat in categories %}
+                        <option value="{{val}}">{{cat}}</option>
+                    {% endfor %}
+                </select>
+
                 <input type="submit" class="btn btn-primary" value="Add Post" />
             </form>
 
