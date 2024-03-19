@@ -1,0 +1,44 @@
+/* index */
+.all{
+    text-decoration: none;
+    color: aqua;
+}
+h1{
+    font-family: "Roboto", sans-serif;
+}
+h2{
+    font-family: "Roboto", sans-serif;
+}
+.hero {
+    height: 200px;
+    object-fit: cover;
+}
+
+p {
+    white-space: pre-line;
+}
+
+.cat {
+    background-color: rgb(21, 124, 155);
+    color:white;
+    align-self: flex-start;
+}
+
+.Tech {
+    background-color: orangered;
+}
+
+.Fashion {
+    background-color: purple;
+}
+
+.Science {
+    background-color: darkolivegreen;
+}
+
+.thumb {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 15px;
+}
