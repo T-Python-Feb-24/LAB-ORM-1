@@ -1,0 +1,117 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Blog Website {% endblock %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    form {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    input[type="text"],
+    input[type="date"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: calc(100% / 3 - 20px);
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #0056b3;
+        color: #ffffff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        justify-content: center;
+    }
+
+    button:hover {
+        background-color: #004494;
+    }
+
+    .search-results {
+        margin-top: 20px;
+    }
+
+    .post-item {
+        background-color: #fff;
+        margin-bottom: 10px;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .post-item h2 {
+        margin-top: 0;
+        color: #333;
+    }
+
+    .post-item a {
+        text-decoration: none;
+        color: #0056b3;
+    }
+
+    .post-item p {
+        color: #666;
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+    <form action="{% url 'main:search_posts' %}" method="get">
+        <label for="search">Search:</label>
+        <input type="text" name="q" id="search">
+
+        <label for="publish_date">Publish Date:</label>
+        <input type="date" name="publish_date" id="publish_date">
+
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="search-results">
+        <h1>Search Results</h1>
+
+        {% if search_results %}
+        <p>Showing results for "{{ query }}":</p>
+        <div class="search-results">
+            {% for post in search_results %}
+            <div class="post-item">
+                <h2><a href="{% url 'main:post_detail' post.id %}">{{ post.title }}</a></h2>
+                <p>Published on: {{ post.published_at|date:"F d, Y" }}</p>
+                <p>{{ post.content|truncatewords:30 }}</p>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No results found for "{{ query }}".</p>
+        {% endif %}
+    </div>
+</div>
+</body>
+
+</html>
+{% endblock %}

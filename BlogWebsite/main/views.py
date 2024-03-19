@@ -3,31 +3,38 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest
 from .models import Post
 from datetime import date
+from django.db.models import Q
+from django.utils.timezone import now
 def home(request: HttpRequest):
+    print(request.GET)
+    posts = Post.objects.all().order_by('-published_at')[0:3]
     
-    posts = Post.objects.filter(is_published=True).order_by('-published_at')
-    return render(request, 'main/home.html', {'posts': posts})
-class PostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ['title', 'content', 'is_published', 'image']
-        widgets = {
-            'is_published': forms.CheckboxInput()
-        }
 
-def add_post(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('main:home')
-        else:
-           
-            print(form.errors)
+    return render(request, "main/home.html", {"posts" : posts})
+
+def all_posts_view(request: HttpRequest):
+
+    
+    if "cat" in request.GET:
+        posts = Post.objects.filter(category=request.GET["cat"])
     else:
-        form = PostForm()
+        posts = Post.objects.all()
 
-    return render(request, "main/add_post.html", {'form': form})
+    return render(request, "main/all_posts.html", {"posts" : posts, "categories" : Post.categories.choices})
+
+
+def add_post(request: HttpRequest):
+
+    if request.method == 'POST':
+        try:
+            new_post = Post(title=request.POST["title"], content=request.POST["content"], is_published=request.POST.get("is_published", False), category=request.POST["category"], image=request.FILES["image"])
+            new_post.save()
+        except Exception as e:
+            print(e)
+        return redirect("main:home")
+    return render(request, "main/add_post.html", {"categories" : Post.categories.choices})
+
+
 
 def post_detail(request:HttpRequest, post_id):
 
@@ -35,7 +42,7 @@ def post_detail(request:HttpRequest, post_id):
         #getting a  post detail
         post = Post.objects.get(pk=post_id)
     except Post.DoesNotExist:
-        post = None
+         return render(request, "404.html")
     except Exception as e:
         print(e)
 
@@ -47,16 +54,19 @@ def update_post(request:HttpRequest, post_id):
 
     if request.method == "POST":
         try:
+            
             post.title = request.POST["title"]
             post.content = request.POST["content"]
             post.is_published = request.POST.get("is_published", False)
-            post.image = request.FILES['image']
+            post.category = request.POST["category"]
+            post.image = request.FILES.get("image", post.image)
             post.save()
+            return redirect("main:post_detail", post_id=post.id)
         except Exception as e:
             print(e)
-        return redirect("main:post_detail", post_id= post.id)
 
-    return render(request, 'main/update_post.html', {"post" : post})
+    
+    return render(request, 'main/update_post.html', {"post" : post, "categories" : Post.categories.choices})
 
 
 def delete_post(request:HttpRequest, post_id):
@@ -72,3 +82,16 @@ def delete_post(request:HttpRequest, post_id):
 
 def view_404(request, exception):
     return render(request, '404.html')
+
+def search_posts(request):
+    query = request.GET.get('q')
+    published_at = request.GET.get('published_at')
+
+    
+    search_results = Post.objects.all()
+    if query:
+        search_results = search_results.filter(title__icontains=query)
+    if  published_at:
+        search_results = search_results.filter(published_at=published_at)
+
+    return render(request, 'main/search.html', {'search_results': search_results})
