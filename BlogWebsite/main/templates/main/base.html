@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}{% endblock %}</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      href="{% static "css/bootstrap.css" %}"
       rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
     />
     {% block form_js %}{% endblock form_js %}
     <link
@@ -40,10 +38,10 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
           <ul class="navbar-nav ">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url "main:post_view" %}">Home</a>
+              <a class="nav-link {% if request.resolver_match.view_name == "main:post_view" %}active{% endif %}" aria-current="page" href="{% url "main:post_view" %}">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url "main:add_post_view" %}">Add Post</a>
+              <a class="nav-link {% if request.resolver_match.view_name == "main:add_post_view" %}active{% endif %}" href="{% url "main:add_post_view" %}">Add Post</a>
             </li>
           </ul>
           

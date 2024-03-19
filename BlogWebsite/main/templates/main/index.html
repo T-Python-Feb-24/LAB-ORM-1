@@ -17,6 +17,7 @@
 </div>
         <div class="columns">
             {% for post in posts %}
+                {% if post.is_published %}
                 <a href="{% url "main:post_detail_view" post.id%}"><div class="card post post-index">
                     <img src="{{ post.poster.url }}" alt="" srcset="">
                     <h4>{{ post.title }}</h4>
@@ -30,7 +31,7 @@
                     <p style="color:red;"> Not Published</p>
                     {% endif %}
                       
-                    
+                {% endif %} 
                 </div> 
                 </a>
             {% endfor %}

@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, QueryDict
 from .models import Post
+from django.core.paginator import Paginator
 # Create your views here.
 
 
@@ -9,27 +10,32 @@ def post_view(request: HttpRequest):
     return render(request, "main/index.html", {"posts": posts})
 
 
-def search(req: list[str]):
-    if "cat" in req:
-        posts = Post.objects.filter(category=req["cat"])
-        active_cat = req["cat"]
-        return posts, active_cat
-    else:
-        posts = Post.objects.all()
-        active_cat = "All"
+def search(req: QueryDict):
+    posts = Post.objects.all()
     if "title" in req:
-        posts = Post.objects.filter(title__contains=req["title"])
-    if "publish_date" in req:
-        posts = Post.objects.filter(published_at=req["published_at"])
-    active_cat = "All"
-    return posts, active_cat
+        posts = posts.filter(title__contains=req["title"])
+    if "cat" in req:
+        posts = posts.filter(category=req["cat"])
+        active_cat = req["cat"]
+    else:
+        active_cat = "All"
+    if "date" in req and len(req["date"]) > 4:
+        posts = posts.filter(published_at__startswith=req["date"])
+
+    pages = Paginator(posts, per_page=3)
+    if "page" in req:
+        if int(req.get("page")) in pages.page_range:
+            posts = pages.get_page(req.get("page"))
+    else:
+        posts = pages.get_page(1)
+    return pages, posts, active_cat
 
 
 def all_posts_view(request: HttpRequest):
-    posts, active_cat = search(request.GET)
-
+    pages, posts, active_cat = search(request.GET)
+    print(pages.count)
     return render(request, "main/all_posts.html",
-                  {"posts": posts, "active_cat": active_cat,
+                  {"posts": posts, "pages": pages, "active_cat": active_cat,
                    "categories": Post.category_choices.choices})
 
 
