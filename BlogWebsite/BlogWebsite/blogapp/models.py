@@ -13,6 +13,6 @@ class Post(models.Model):
     is_published = models.BooleanField()
     published_at = models.DateTimeField(auto_now_add=True)
     poster = models.ImageField(upload_to="images/", default="images/default.jpeg")
-    category = models.CharField(max_length=64, choices=categories.choices)
-
+    category = models.CharField(max_length=64, choices=categories.choices, default= "General")
+    
 
