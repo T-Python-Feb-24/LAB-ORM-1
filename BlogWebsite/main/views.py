@@ -17,24 +17,23 @@ def add_post_view(request: HttpRequest):
         try:
             new_post = Post(title=request.POST["title"], content=request.POST["content"], is_published=request.POST.get("is_published", False), poster=request.FILES["poster"])
             new_post.save()
+            return redirect("main:index_view")
         except Exception as e:
             print(e)
-
-    return render(request, "main/add_post.html")
-
+    return render(request,"main/add_post.html")
 
 
 
 def post_detail_view(request:HttpRequest, post_id):
 
     try:
+
         #getting a  post detail
-        post = Post.objects.get(pk=post_id)
+         post = Post.objects.get(pk=post_id)
     except Post.DoesNotExist:
         post = None
     except Exception as e:
         print(e)
-
 
     return render(request, "main/post_detail.html", {"post" : post})
 
@@ -67,4 +66,16 @@ def delete_post_view(request:HttpRequest, post_id):
     
 
     return redirect("main:index_view")
+
+
+def search_post_view(request: HttpRequest):
+    if 'q' in request.GET:
+        q = request.GET['q']
+        posts = Post.objects.filter(title__icontains=q)
+    else:
+        posts = Post.objects.all().order_by('-published_at')
+        
+    
+    return render(request,"main/search_result.html",{"posts":posts})
+
 
