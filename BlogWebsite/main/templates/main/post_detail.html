@@ -7,10 +7,18 @@
 <div class="row">
     <div class="col">
         <div class="d-flex flex-column p-3 mt-3">
+            
+            <!--title-->
             <h1> {{ post.title }}</h1>
+            <!--image-->
             <img src="{{post.poster.url}}" class="w-100"/>
+            <!--category-->
+            <h6>{{post.category}}</h6>
+            <!--content -->
             <p> {{ post.content }}</p>
+            <!--published at -->
             <h6>{{post.published_at}}</h6>
+        
         </div> 
 
         <div>

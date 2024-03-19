@@ -1,6 +1,8 @@
-{% extends 'main/base.html' %}
+{% extends "main/base.html" %}
 
-{% block title %} Blog Website{% endblock %}
+{% block title %}All Posts{% endblock  %}
+
+
 
 
 {% block content %}
@@ -13,10 +15,15 @@
     <div/>
 
     <div class="row">
-        <div class="d-flex flex-row justify-content-between  align-items-center mb-4">
-            <h3> posts : </h3>
-            <a href="{% url "main:all_posts" %}"><h6>View All</h6></a>
-        </div>
+        <div class= "d-flex align-items-center justify-content-between ">
+            <h1> posts : </h1>
+            <div clas="d-flex justify-content-between align-items-center mb-5">
+                <a href="{% url 'main:all_posts' %}" class="p-2 ps-3 pe-3 rounded-pill cat  text-decoration-none">All</a>
+                {% for val, key in categories %}
+                    <a href="?cat={{val}}" class="p-2 ps-3 pe-3 rounded-pill cat {{ val }} text-decoration-none">{{val}}</a>
+                {% endfor %}
+            </div>  
+        </div>  
         {% for post in posts %}
             <div class="col-4">
                 <div class="d-flex flex-column gap-2 border border-1 shadow p-3 rounded-4 h-100">

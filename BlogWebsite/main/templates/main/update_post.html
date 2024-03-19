@@ -15,6 +15,14 @@
                     <img src="{{post.poster.url}}" class="thumb">
                     <input type="file" name ="poster" accept='image/*' >
                     
+                    <!--category-->
+                    <h5>Category</h5>
+                    <select name="category" class="form-select" required>
+                        {% for val, cat in categories %}
+                            <option value="{{val}}" {% if post.category == val %} selected {% endif %}>{{cat}}</option>
+                        {% endfor %}
+                    </select>
+
                     <!--content-->
                     <textarea name="content"  class="form-control">{{ post.content }}</textarea>
                     <h6>{{post.published_at}}</h6>

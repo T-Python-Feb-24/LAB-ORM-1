@@ -24,9 +24,9 @@ After you finish , sync your changes to githbu & create a Pull Request.
 
 ## Using your last LAB , do the following:
  
-- Limit posts in the home page to 3 pages, and display only published posts.
-- Add a new page to display all the posts.
-- In the new page , add filter by category (display the chosen category, with the result count)
+- Limit posts in the home page to 3 pages, and display only published posts. ✅
+- Add a new page to display all the posts.✅
+- In the new page , add filter by category (display the chosen category, with the result count) ✅
 - Add a search page : user can search for a post, user can filter by publish date .
 Hint: use a form with method = “get” attribute to help you build Query.
 
