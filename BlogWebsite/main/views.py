@@ -36,7 +36,7 @@ def add_post(request : HttpRequest):
 
 def post_detail(request : HttpRequest ,post_id):
     try:
-        post = Post.objects.get(pk=post_id)
+        post = Post.objects.get(pk=post_id)  
     except Post.DoesNotExist:
          return render(request,"main/not_found.html")
     except Exception as e:
@@ -87,4 +87,13 @@ def all_posts(request: HttpRequest):
 
 def search_page(request: HttpRequest):
     
-    return render ("main/search_page.html")
+    if "search" in request.GET:
+        posts = Post.objects.filter(title__contains=request.GET["search"])
+
+    if "date" in request.GET and len(request.GET["date"]) > 4:
+        first_date = date.fromisoformat(request.GET["date"])
+        end_date = first_date + timedelta(days=1)
+        posts = posts.filter(published_at__gte=first_date, published_at__lt=end_date)
+
+    return render (request,"main/search_page.html",{"posts":posts})
+
