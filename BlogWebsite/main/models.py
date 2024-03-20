@@ -18,3 +18,7 @@ class Post(models.Model):
 
     Categories = models.TextChoices('Category', ["General","Science", "Culture", "Food","Tech","Fashion"]) 
     category = models.CharField(max_length = 64, choices = Categories.choices)
+
+
+    def __str__(self):
+        return self.title
