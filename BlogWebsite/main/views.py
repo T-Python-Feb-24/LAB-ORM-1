@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 # Create your views here.
 from .models import Post
+from datetime import date, timedelta
+
 
 
 def home_view(request: HttpRequest):
@@ -93,6 +95,20 @@ def all_view(request:HttpRequest):
     return render(request, "main/all.html", {"posts" : posts, "categories" : Post.categories.choices})
 
 def search_view(request:HttpRequest):
-    return render(request,"main/search.html")
-    query=request.GET['q']
+    posts = []
+
+    if "search" in request.GET:
+        posts = Post.objects.filter(title__contains=request.GET["search"])
+    if "search" in request.GET:
+        posts = Post.objects.filter(category__contains=request.GET["search"])
+
+    if "date" in request.GET and len(request.GET["date"]) > 4:
+        first_date = date.fromisoformat(request.GET["date"])
+        end_date = first_date + timedelta(days=1)
+        posts = posts.filter(published_at__gte=first_date, published_at__lt=end_date)
+
+
+    return render(request, "main/search.html", {"posts" : posts})
+
+
    

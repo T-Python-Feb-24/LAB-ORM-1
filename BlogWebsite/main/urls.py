@@ -10,5 +10,5 @@ urlpatterns  = [
     path("post/update/<post_id>/", views.update_view, name="update_view"),
     path("post/delete/<post_id>/", views.delete_view, name="delete_view"),
     path("post/all/", views.all_view, name="all_view"),
-    path(r'^home/$',views.search_view, name="search_view" )
+    path("post/search/",views.search_view, name="search_view" )
 ]
