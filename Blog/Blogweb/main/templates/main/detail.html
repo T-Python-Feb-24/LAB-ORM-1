@@ -13,11 +13,14 @@
                
                 <div class="d-flex justify-content-between">
                     <h6>{{post.published_at}}</h6>
+                     
                     <div class="d-flex gap-2">
                         <a href="{% url 'main:update_page' post.id %}" class="btn btn-primary">Update</a>
                         <a href="{% url 'main:delete_view' post.id %}" class="btn btn-danger">Delete</a>
                     </div>
                 </div>
+                <h6>Is published : {{post.is_published}}</h6>
+                <br><br>
                 <p>{{ post.content }}</p>
             </div>
         </div>

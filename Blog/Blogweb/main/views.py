@@ -1,6 +1,7 @@
 from django.shortcuts import render ,redirect
 from django.http import HttpRequest, HttpResponse
 from .models import Post
+from datetime import date, timedelta
 # Create your views here.
 
 def home(request: HttpRequest):
@@ -91,11 +92,13 @@ def delete(request:HttpRequest, post_id):
 
 
 def search(request:HttpRequest):
-     if request.method == "GET":
-          query=request.GET.get("query")
-          if query:
-            posts = Post.objects.filter(title__contains=query).order_by('-published_at')
-            return render(request,"main/searchbar.html" , {"post" : posts})
-          else:
-            print("NO Reasult for this search")
-            return render(request,"main/searchbar.html",{})
+    if "query" in request.GET:
+        posts = Post.objects.filter(title__contains=request.GET["query"])
+
+    if "date" in request.GET and len(request.GET["date"]) > 4:
+        first_date = date.fromisoformat(request.GET["date"])
+        end_date = first_date + timedelta(days=1)
+        posts = posts.filter(published_at__gte=first_date, published_at__lt=end_date)
+
+    return render(request,"main/search_bar.html" , {"posts" : posts})
+    
