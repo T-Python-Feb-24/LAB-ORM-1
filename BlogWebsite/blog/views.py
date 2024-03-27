@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 import os
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
@@ -55,7 +56,7 @@ def update_post_page(request:HttpRequest, post_id):
             post.content = request.POST["content"]
             post.is_published = request.POST.get("is_published", False)
             post.poster = request.FILES.get("poster", post.poster)
-            post.category = request.POST["category"],
+            post.category = request.POST["category"]
             post.save()
 
             return redirect("blog:post_detail_page", post_id=post.id)
@@ -86,3 +87,19 @@ def all_posts_page(request: HttpRequest):
         posts = Post.objects.all()
 
     return render(request, "blog/all_posts_page.html", {"posts" : posts, "categories" : Post.categories.choices})
+
+def posts_search_page(request: HttpRequest):
+
+    posts = []
+
+    if "search" in request.GET:
+        posts = Post.objects.filter(title__contains=request.GET["search"])
+
+    if "date" in request.GET and len(request.GET["date"]) > 4:
+        first_date = date.fromisoformat(request.GET["date"])
+        end_date = first_date + timedelta(days=1)
+        posts = posts.filter(published_at__gte=first_date, published_at__lt=end_date)
+
+
+    return render(request, "blog/posts_search_page.html", {"posts" : posts})
+
